@@ -1,11 +1,11 @@
-2043b52c8dca73322da79387e58143db *DESCRIPTION
+4b26cd3e9665b112c3ee142723c348a8 *DESCRIPTION
 ac287745e2b70cc5088af7dbb1e8de55 *NAMESPACE
-cb1d95cad981c3ca296fcabbc0bf2416 *R/allinone.R
+f1b04e60127dd3fb2c17df1bfeb7561c *R/allinone.R
 50f4a7dbdf7da0dadef7c33f1323abb2 *R/hearth2.R
 50054bb6c72255bb10f2f08b33b3bfaa *R/print.R
-295f6ccd90fe858377253ffc87d92661 *R/rfvimptest.R
-75ffb05e441e9067b92d7ff45a01d767 *build/partial.rdb
+787460fb448c1c17471317aae9d70764 *R/rfvimptest.R
+3637be2974dcc79dc950cd5ca04f503e *build/partial.rdb
 9eeaab64aeaa097c3fa9ab05a88d37c1 *data/hearth2.rda
-0d458055ddd159b8c16024df8c92a19e *man/allinone.Rd
+b8a8c0247c60d3cd7c48cec8a3f6b841 *man/allinone.Rd
 31bbb92636bdd77e9fb9b3153761a441 *man/hearth2.Rd
-8d9b291f17ee28a7d33e4b5423d5e201 *man/rfvimptest.Rd
+9d035e8e73e4afb851bb429110f20231 *man/rfvimptest.Rd

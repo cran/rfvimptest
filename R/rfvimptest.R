@@ -112,7 +112,7 @@
 ##' \itemize{
 ##'   \item Breiman, L. (2001). Random forests. Mach Learn, 45:5-32, <\doi{10.1023/A:1010933404324}>.
 ##'   \item Coleman, T., Peng, W., Mentch, L. (2019). Scalable and efficient hypothesis testing with random forests. arXiv preprint arXiv:1904.07830, <\doi{10.48550/arXiv.1904.07830}>.
-##'   \item Hapfelmeier, A., Hornung, R., Haller, B. (in prep.) Sequential Permutation Testing of Random Forest Variable Importance Measures.
+##'   \item Hapfelmeier, A., Hornung, R., Haller, B. (2022). Sequential Permutation Testing of Random Forest Variable Importance Measures. arXiv preprint arXiv:2206.01284, <\doi{10.48550/arXiv.2206.01284}>.
 ##'   \item Hapfelmeier, A., Ulm, K. (2013). A new variable selection approach using Random Forests. CSDA 60:50–69, <\doi{10.1016/j.csda.2012.09.020}>.
 ##'   \item Hapfelmeier, A., Hothorn, T., Ulm, K., Strobl, C. (2014). A new variable importance measure for random forests with missing data. Stat Comput 24:21–34, <\doi{10.1007/s11222-012-9349-1}>.
 ##'   \item Hothorn, T., Hornik, K., Zeileis, A. (2006). Unbiased Recursive Partitioning: A Conditional Inference Framework. J Comput Graph Stat 15(3):651–674, <\doi{10.1198/106186006X133933}>.
