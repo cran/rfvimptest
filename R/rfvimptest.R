@@ -130,6 +130,11 @@ rfvimptest <- function(data, yname, Mmax = 500, varnames = NULL, p0 = 0.06, p1 =
   starttime <- Sys.time()
   # @seealso \code{\link{predict.divfor}}
 
+  if(any(is.na(data))) {
+    missvariables <- paste(names(data)[apply(data, 2, function(x) any(is.na(x)))], collapse = ", ")
+    stop(paste0("Missing data in columns: ", missvariables, ". Please provide complete data or consider setting condinf=TRUE."))
+  }
+
   if(!condinf & test == "twosample")
     stop("'twosample' approach only useable if condinf=TRUE.")
 

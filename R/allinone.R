@@ -93,6 +93,11 @@ allinone <- function(data, yname, Mmax = 500, varnames = NULL, p0 = 0.06, p1 = 0
                      progressbar = TRUE, condinf=FALSE, ...) {
   starttime <- Sys.time()
 
+  if(any(is.na(data))) {
+    missvariables <- paste(names(data)[apply(data, 2, function(x) any(is.na(x)))], collapse = ", ")
+    stop(paste0("Missing data in columns: ", missvariables, ". Please provide complete data or consider setting condinf=TRUE."))
+  }
+
   if(!condinf)
     warning("Results for the 'twosample' approach were not calculated because condinf=FALSE.")
 
