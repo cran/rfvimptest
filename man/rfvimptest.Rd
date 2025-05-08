@@ -83,7 +83,7 @@ Object of class \code{rfvimptest} with elements
 }
 \description{
 Implements several strategies for testing the statistical significance of predictors in random forests using sequential permutation testing procedures based on the permutation variable importance measure.
-See Hapfelmeier et al. (2022) for details.
+See Hapfelmeier et al. (2023) for details.
 }
 \details{
 Only the general permutation test (\code{test="general"}) controls the type I error. In contrast, the two-sample permutation test (\code{test="twosample"})
@@ -93,8 +93,8 @@ It is, however, not a valid testing procedure. Note also that
 the paper of Coleman et al. (2019) on which the two-sample test is based has not yet been published in a peer-reviewed journal and that
 the theory underlying this procedure might thus still need further review.
 
-SRPT (\code{type="SRPT"}) and SAPT (\code{type="SAPT"}) are similar sequential procedures, where SRPT is faster with respect to accepting H0, that is, detecting non-informative variables,
-whereas SAPT is faster with respect to accepting H1, that is, detecting informative variables. Therefore, SRPT may be preferred for
+SPRT (\code{type="SPRT"}) and SAPT (\code{type="SAPT"}) are similar sequential procedures, where SPRT is faster with respect to accepting H0, that is, detecting non-informative variables,
+whereas SAPT is faster with respect to accepting H1, that is, detecting informative variables. Therefore, SPRT may be preferred for
 datasets with only few informative variables, whereas SAPT is preferable for datasets with many informative variables.
 The Monte Carlo p-value based testing procedure (\code{type="pval"}) should be used, when p-values are required.
 The choice \code{type="complete"} offers a conventional permutation test (that is, without sequential testing) (Hapfelmeier and Ulm, 2013). This choice
@@ -161,7 +161,7 @@ rfvimptest(data=hearth2, yname="Class", test="twosample", type="SAPT", condinf=T
 \itemize{
   \item Breiman, L. (2001). Random forests. Mach Learn, 45:5-32, <\doi{10.1023/A:1010933404324}>.
   \item Coleman, T., Peng, W., Mentch, L. (2019). Scalable and efficient hypothesis testing with random forests. arXiv preprint arXiv:1904.07830, <\doi{10.48550/arXiv.1904.07830}>.
-  \item Hapfelmeier, A., Hornung, R., Haller, B. (2022). Sequential Permutation Testing of Random Forest Variable Importance Measures. arXiv preprint arXiv:2206.01284, <\doi{10.48550/arXiv.2206.01284}>.
+  \item Hapfelmeier, A., Hornung, R., Haller, B. (2023). Efficient permutation testing of variable importance measures by the example of random forests. Comput Stat Data Anal, 181:107689, <\doi{10.1016/j.csda.2022.107689}>.
   \item Hapfelmeier, A., Ulm, K. (2013). A new variable selection approach using Random Forests. CSDA 60:50–69, <\doi{10.1016/j.csda.2012.09.020}>.
   \item Hapfelmeier, A., Hothorn, T., Ulm, K., Strobl, C. (2014). A new variable importance measure for random forests with missing data. Stat Comput 24:21–34, <\doi{10.1007/s11222-012-9349-1}>.
   \item Hothorn, T., Hornik, K., Zeileis, A. (2006). Unbiased Recursive Partitioning: A Conditional Inference Framework. J Comput Graph Stat 15(3):651–674, <\doi{10.1198/106186006X133933}>.

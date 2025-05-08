@@ -1,7 +1,7 @@
 ##' Testing the statistical significance of predictors in random forests using sequential permutation testing
 ##'
 ##' Implements several strategies for testing the statistical significance of predictors in random forests using sequential permutation testing procedures based on the permutation variable importance measure.
-##' See Hapfelmeier et al. (2022) for details.
+##' See Hapfelmeier et al. (2023) for details.
 ##'
 ##' Only the general permutation test (\code{test="general"}) controls the type I error. In contrast, the two-sample permutation test (\code{test="twosample"})
 ##' is associated with inflated type I error, which can lead to false positive findings. An advantage of the two-sample permutation test is that it is
@@ -10,8 +10,8 @@
 ##' the paper of Coleman et al. (2019) on which the two-sample test is based has not yet been published in a peer-reviewed journal and that
 ##' the theory underlying this procedure might thus still need further review.
 ##'
-##' SRPT (\code{type="SRPT"}) and SAPT (\code{type="SAPT"}) are similar sequential procedures, where SRPT is faster with respect to accepting H0, that is, detecting non-informative variables,
-##' whereas SAPT is faster with respect to accepting H1, that is, detecting informative variables. Therefore, SRPT may be preferred for
+##' SPRT (\code{type="SPRT"}) and SAPT (\code{type="SAPT"}) are similar sequential procedures, where SPRT is faster with respect to accepting H0, that is, detecting non-informative variables,
+##' whereas SAPT is faster with respect to accepting H1, that is, detecting informative variables. Therefore, SPRT may be preferred for
 ##' datasets with only few informative variables, whereas SAPT is preferable for datasets with many informative variables.
 ##' The Monte Carlo p-value based testing procedure (\code{type="pval"}) should be used, when p-values are required.
 ##' The choice \code{type="complete"} offers a conventional permutation test (that is, without sequential testing) (Hapfelmeier and Ulm, 2013). This choice
@@ -112,7 +112,7 @@
 ##' \itemize{
 ##'   \item Breiman, L. (2001). Random forests. Mach Learn, 45:5-32, <\doi{10.1023/A:1010933404324}>.
 ##'   \item Coleman, T., Peng, W., Mentch, L. (2019). Scalable and efficient hypothesis testing with random forests. arXiv preprint arXiv:1904.07830, <\doi{10.48550/arXiv.1904.07830}>.
-##'   \item Hapfelmeier, A., Hornung, R., Haller, B. (2022). Sequential Permutation Testing of Random Forest Variable Importance Measures. arXiv preprint arXiv:2206.01284, <\doi{10.48550/arXiv.2206.01284}>.
+##'   \item Hapfelmeier, A., Hornung, R., Haller, B. (2023). Efficient permutation testing of variable importance measures by the example of random forests. Comput Stat Data Anal, 181:107689, <\doi{10.1016/j.csda.2022.107689}>.
 ##'   \item Hapfelmeier, A., Ulm, K. (2013). A new variable selection approach using Random Forests. CSDA 60:50–69, <\doi{10.1016/j.csda.2012.09.020}>.
 ##'   \item Hapfelmeier, A., Hothorn, T., Ulm, K., Strobl, C. (2014). A new variable importance measure for random forests with missing data. Stat Comput 24:21–34, <\doi{10.1007/s11222-012-9349-1}>.
 ##'   \item Hothorn, T., Hornik, K., Zeileis, A. (2006). Unbiased Recursive Partitioning: A Conditional Inference Framework. J Comput Graph Stat 15(3):651–674, <\doi{10.1198/106186006X133933}>.
@@ -130,7 +130,7 @@ rfvimptest <- function(data, yname, Mmax = 500, varnames = NULL, p0 = 0.06, p1 =
   starttime <- Sys.time()
   # @seealso \code{\link{predict.divfor}}
 
-  if(any(is.na(data))) {
+  if(!condinf & any(is.na(data))) {
     missvariables <- paste(names(data)[apply(data, 2, function(x) any(is.na(x)))], collapse = ", ")
     stop(paste0("Missing data in columns: ", missvariables, ". Please provide complete data or consider setting condinf=TRUE."))
   }
@@ -143,20 +143,9 @@ rfvimptest <- function(data, yname, Mmax = 500, varnames = NULL, p0 = 0.06, p1 =
 
   if (progressbar) pb <- txtProgressBar(min = 1, max = Mmax, initial = 1, width = 10, style = 3, char = "|")
 
-  if (type == "SPRT") {
-    A <- beta / (1 - alpha)
-    B <- (1 - beta) / alpha
-  }
-  if (type %in% c("SPRT", "SAPT")) {
-    logA <- log(A)
-    logB <- log(B)
-    help1 <- log((1 - p0) / (1 - p1))
-    help2 <- log((p1 * (1 - p0)) / (p0 * (1 - p1)))
-  }
-
   stop_crits <- switch(type,
-                       SPRT = list((logA + 1:Mmax * help1) / help2, (logB + 1:Mmax * help1) / help2),
-                       SAPT = list((logA + 1:Mmax * help1) / help2, (logB + 1:Mmax * help1) / help2),
+                       SPRT = threshold_values(p0 = p0, p1 = p1, alpha = alpha, beta = beta, Mmax = Mmax, type = "SPRT"),
+                       SAPT = threshold_values(p0 = p0, p1 = p1, A = A, B = B, Mmax = Mmax, type = "SAPT"),
                        pval = list(rep(h, times = Mmax), rep(h, times = Mmax)),
                        certain = list(rep(alpha*Mmax, times = Mmax), Mmax*alpha - Mmax + 1:Mmax),
                        complete = NULL)
